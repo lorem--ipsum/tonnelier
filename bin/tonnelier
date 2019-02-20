@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+const yargs = require('yargs');
+
+const argv = yargs
+  .command('default <rootDir>', 'Builds an index.ts file', (yargs) => {
+    yargs.positional('rootDir', {
+      describe: 'the starting directory',
+      type: 'string'
+    })
+  })
+
+  .option('override', {
+    alias: 'o',
+    default: false
+  })
+
+  .help('h')
+  .alias('h', 'help')
+
+  .argv;
+
+const tonnelier = require('../dist/tonnelier.js')
+
+tonnelier(argv);
