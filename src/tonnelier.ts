@@ -18,20 +18,9 @@ async function getNames(dir: string) {
 }
 
 module.exports = async function (argv: any) {
-  const src = argv._[0];
-
-  const names = await getNames(src);
-
-  const indexPath = path.resolve(src, 'index.ts');
-  const indexExists = fs.existsSync(indexPath);
-
-  if (indexExists && !argv.override) {
-    throw new Error(`${indexPath} already exists, use the --override option`);
-  }
+  const names = await getNames(argv._[0]);
 
   const content = names.map(n => `export * from './${n}'`);
 
-  console.log(content)
-
-  // await fs.writeFile(indexPath, content)
+  return content.join('\n');
 }

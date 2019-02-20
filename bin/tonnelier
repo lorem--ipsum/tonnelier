@@ -10,11 +10,6 @@ const argv = yargs
     })
   })
 
-  .option('override', {
-    alias: 'o',
-    default: false
-  })
-
   .help('h')
   .alias('h', 'help')
 
@@ -22,4 +17,6 @@ const argv = yargs
 
 const tonnelier = require('../dist/tonnelier.js')
 
-tonnelier(argv);
+tonnelier(argv).then(result => {
+  console.log(result);
+});
