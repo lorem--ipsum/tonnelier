@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 
 async function getNames(dir: string) {
-  const files = await glob(path.resolve(dir, '**/*.tsx'));
+  const files = await glob(path.resolve(dir, '**/*.{tsx,ts}'));
 
   return files
     .map(f => path.relative(dir, f))
@@ -13,14 +13,14 @@ async function getNames(dir: string) {
 
       return fileName === folderName;
     })
-    .map(f => path.join(path.dirname(f), path.basename(f, path.extname(f))))
+    .map(f => path.join(path.dirname(f), path.basename(f)))
     ;
 }
 
 module.exports = async function (argv: any) {
   const names = await getNames(argv._[0]);
 
-  const content = names.map(n => `export * from './${n}'`);
+  const content = names.map(n => `export * from './${n}';`);
 
   return content.join('\n');
 }
