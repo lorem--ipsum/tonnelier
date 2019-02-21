@@ -13,7 +13,7 @@ async function getNames(dir: string) {
 
       return fileName === folderName;
     })
-    .map(f => path.join(path.dirname(f), path.basename(f)))
+    .map(f => path.join(path.dirname(f), path.basename(f, path.extname(f))))
     ;
 }
 
